@@ -9,3 +9,47 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+.complete-button {
+    /*background-color: #ef4444;*/
+    /*color: white;*/
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    animation: button 3s infinite ease-in-out;
+    animation-play-state: running;
+}
+
+.complete-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+    animation-play-state: paused;
+    /*background-color: #dc2626;*/
+}
+
+.complete-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes button{
+    0%{
+        scale: 0.98;
+        box-shadow: 0  0 0 rgba(0, 0, 0, 0.2);
+
+
+    }
+    50%{
+        scale: 1.02;
+        box-shadow: 0 0 10px 0.1pc rgba(41, 255, 118, 1);
+
+    }
+    100%{
+        scale: 0.98;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+
+    }
+
+}
