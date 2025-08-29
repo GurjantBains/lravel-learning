@@ -38,12 +38,12 @@
                 @enderror
             </div>
             <div class="flex flex-col gap-2">
-                <label for="long_description" class="text-sm font-medium text-gray-200">Due Date</label>
+                <label for="long_description" class="text-sm font-medium text-gray-200">Long Description</label>
                 <input
                     id="long_description"
                     type="text"
                     name="long_description"
-                    placeholder="Optional notes or due date"
+                    placeholder="This Task is about ... "
                     value="{{ old('long_description') }}"
                     class="w-full rounded-lg bg-gray-900/60 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 px-4 py-2.5 text-gray-100 placeholder-gray-400 outline-none transition"
                 >

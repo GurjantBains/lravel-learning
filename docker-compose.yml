@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    laravel:
+        image: php:8.3-cli
+        container_name: laravel-app
+        working_dir: /var/www/html
+        volumes:
+            - .:/var/www/html
+        ports:
+            - "8000:8000"
+        command: bash -c "apt-get update \
+            && apt-get install -y unzip libzip-dev \
+            && docker-php-ext-install pdo pdo_mysql \
+            && php artisan serve --host=0.0.0.0 --port=8000"
+        env_file:
+            - .env   # <-- load variables from your local .env file
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
