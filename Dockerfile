@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     libpng-dev libonig-dev libxml2-dev libzip-dev \
     libpq-dev libicu-dev libjpeg-dev libfreetype6-dev \
     supervisor nodejs npm \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Enable Apache rewrite module
 RUN a2enmod rewrite
@@ -25,27 +26,19 @@ RUN docker-php-ext-install pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath 
 WORKDIR /var/www/html
 
 # ------------------------------
-# Copy composer files & install PHP deps
-# ------------------------------
-COPY composer.json composer.lock ./
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader
-
-# ------------------------------
-# Copy package files & install frontend deps
-# ------------------------------
-COPY package*.json ./
-RUN npm install
-
-# ------------------------------
-# Copy the rest of the project
+# Copy the full project first
 # ------------------------------
 COPY . .
 
 # ------------------------------
-# Build Vite assets
+# Install PHP dependencies
 # ------------------------------
-RUN npm run build
+RUN composer install --no-dev --optimize-autoloader
+
+# ------------------------------
+# Install frontend deps & build assets
+# ------------------------------
+RUN npm install && npm run build
 
 # ------------------------------
 # Fix permissions
